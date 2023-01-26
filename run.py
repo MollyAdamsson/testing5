@@ -44,7 +44,7 @@ def start_game():
         
 
 def path_choice():
-    print("Lets get started. Do you want to move forward? Type 'y' for yes and 'n' for no and quit game")
+    print("Lets get started. Do you want to move forward? Type 'r' for yes and 'n' for no and quit game")
     choice = input("> ")
     if choice == 'y':
         clearConsole()
@@ -91,7 +91,7 @@ def player_encounter_goblin():
             if goblin_health <= 0:
                 print("You have defeated the goblin! You may continue on your journey.")
                 clearConsole()
-                meet_wizard()
+                yes or no question
                 return
             else:
                 print(f"The goblin now has {goblin_health} health.")
@@ -107,7 +107,7 @@ def player_encounter_goblin():
             if run_away_chance <= 30:
                 print("You managed to run away safely.")
                 clearConsole()
-                path_choice_4()
+                yes or no question here
                 return
             else:
                 print("You failed to run away and the goblin hit you.")
@@ -125,14 +125,14 @@ def player_encounter_goblin():
 def path_choice_2():
     print("You get further in to the forest, there are huge tree logs laying everywhere.")
     print("There is one big one in the middle of the road, you have to climb over it to keep going")
-    print("Type 'y' for yes to climb the log or type 'n' for no and surrender the game.")
+    print("Type 'y' for yes to climb the log or type 'g' to go another way.")
     choice = input("> ")
     if choice == 'y':
         clearConsole()
         path_choice_3()
     elif choice == 'n':
         clearConsole()
-        game_over()
+        path_choice_4()
     else:
         print("Invalid choice, please type 'y' or 'n'")
         path_choice_2()
@@ -162,12 +162,24 @@ def path_choice_4():
     choice = input("> ")
     if choice == 'left':
         clearConsole()
-        meet_wizard()
+        meet_witch()
     elif choice == 'forward':
         clearConsole()
-        item_encounter()
+        dead_end()
     else:
         print("Invalid choice, please type 'left' or 'forward'")
+
+def meet_witch():
+    print("A beautiful woman appears")
+    print("some words of wisdom")
+    print("Do you want to continue?")
+    choice = input("> ")
+    if choice == 'y':
+        path_choice_3()
+    elif choice == 'n':
+        game_over()
+    else
+    print("Invalid choice, please print 'y' or 'n'")
 
 def meet_wizard():
     print("You come across a wizard in the forest.")
