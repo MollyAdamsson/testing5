@@ -81,8 +81,7 @@ def player_encounter_goblin():
     goblin_health = 40
     goblin_attack = 15
     global player_inventory 
-    player_inventory = []
-
+    player_inventory = ["Badge of Honor"]
     print("You have come across a nasty forest goblin!")
     print("Do you want to attack or run away?")
     print("Enter 'a' to attack or 'r' to run away!")
@@ -101,17 +100,21 @@ def player_encounter_goblin():
                 print("Enter 'r' to go right or enter 'f' to go forward!")
             choice = input("> ")
             if choice == 'r':
-                path_choice_4()
+                print(player_inventory)
+                if "Book of Wisdom" in player_inventory and "Badge of Honor" in player_inventory:
+                    meet_wizard()
+                else:
+                    path_choice_4()
             elif choice == 'f':
                 if "Book of Wisdom" in player_inventory and "Badge of Honor" in player_inventory:
                     meet_wizard()
                 else:
                     print("You are not ready to go there yet, try another way.")
-                    choice = input("Enter 'r' to go to the right")
-                    if choice == 'r':
+                    choice = input("Enter '1' to go to the right")
+                    if choice == '1':
                         path_choice_4()
                     else:
-                         print("Invalid choice, please type 'r' or 'f'")
+                        print("Invalid choice, please type 'r' or 'f'")
                     return
             else:
                 print(f"The goblin now has {goblin_health} health.")
@@ -121,28 +124,29 @@ def player_encounter_goblin():
                     player_death()
                 else:
                     print(f"You now have {player_health} health.")
-                    choice = input("Do you want to attack or run? ")
-        elif choice == 'r':
+                    print("Do you want to attack or run? enter 1 to attack and 2 to run")
+                    choice = input(">")
+        elif choice == '2':
             run_away_chance = random.randint(10,14)
             if run_away_chance <= 30:
                 print("You managed to run away safely.")
                 player_inventory.append("Badge of Honor")
                 print(f"You have received a 'Badge of Honor' for at least trying! It has been added to your inventory.")
                 clearConsole()
-                print("Enter 'r' to go right or enter 'f' to go forward!")
+                print("Enter 'a' to go right or enter 'b' to go forward!")
             choice = input("> ")
-            if choice == 'r':
-                path_choice_3()
+            if choice == 'a':
+                path_choice_4()
             elif choice == 'f':
                 if "Book of Wisdom" in player_inventory and "Badge of Honor" in player_inventory:
                     meet_wizard()
                 else:
                     print("You are not ready to go there yet, try another way.")
-                    choice = input("Enter 'r' to go to the right")
-                    if choice == 'r':
-                        path_choice_3()
+                    choice = input("Enter 'x' to go to the right")
+                    if choice == 'x':
+                        path_choice_4()
                     else:
-                         print("Invalid choice, please type 'r' or 'f'")
+                         print("Invalid choice, please type 'a' or 'b'")
                 return
             else:
                 print("You failed to run away and the goblin hit you.")
@@ -203,7 +207,7 @@ def path_choice_4():
     print("It clears its throat and says:") 
     print("Hello there brave one, I've been waiting for you!")
     print("The owl continues: To get to the end you must be even braver,") 
-    print("do you want to go left or forward?")
+    print("Type 'l' to go left or 'f' to go forward")
     choice = input("> ")
     if choice == 'l':
         clearConsole()
@@ -232,7 +236,7 @@ def path_choice_4():
 # Function that introduce the witch, here the player is given an item that must be collected to 
 # keep going. The player must have the "Book of wisdom" and "Badge of honor" to proceed to the Wizard.
 def meet_witch():
-    player_inventory = []
+    global player_inventory
     print("A beautiful woman appears")
     print("Ah the trees and the gnomes were right, the witch says with a soft smile")
     print("There is a human here, I've been looking all over for you")
@@ -249,9 +253,15 @@ def meet_witch():
     choice = input("> ")
     if choice == 'l':
         if "Book of Wisdom" in player_inventory and "Badge of Honor" in player_inventory:
-            print("You cannot choose 'l', you have to take 'f'")
-            clearConsole()
-            meet_witch()
+            print("Oh no, you've reached a dead end!")
+            print("Enter 'f' to go forward")
+            choice = input(">")
+            if choice == 'f':
+                meet_wizard()
+            else:
+                print("Invalid choice, try again")
+                clearConsole()
+                return    
         else:
             path_choice_3()
     elif choice == 'f':
@@ -295,7 +305,6 @@ def wild_stream():
     print("1. Swim over")
     print("2. Jump over")
     choice = input("Enter 1 or 2: ")
-
     if choice == "1":
         print("You swim over the wild stream and make it safely to the other side.")
         clearConsole()
